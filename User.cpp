@@ -7,6 +7,10 @@ string User::username() {
   return m_username;
 }
 
+int User::balance() {
+  return m_balance;
+}
+
 void User::username(string username) {
   m_username = username;
 }

@@ -1,5 +1,7 @@
 #include "User.h"
 #include "UserTest.h"
+#include "Bank.h"
+#include "BankTest.h"
 #include <iostream>
 
 using namespace std;
@@ -24,7 +26,13 @@ int main () {
   // bool sessionExists {false};
   int testsPassed{};
 
+
+  cout << "###############BANK TESTS################\n";
+  testsPassed += runBankTests();
+  cout << "#########################################\n";
+  cout << "###############USER TESTS################\n";
   testsPassed += runUserTests();
+  cout << "##########################################\n";
   cout << "Tests Passed: " << testsPassed <<" \n";
   return 0;
 }
