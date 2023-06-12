@@ -1,6 +1,28 @@
 #include <iostream>
 #include "BankTest.h"
 
+int testUserExists(Bank bank, User user) {
+  if (bank.userExists(user)) {
+    cout << "User exists test success\n";
+    return 1;
+  }
+  cout << "User exists test fail\n";
+  return 0;
+}
+
+int testAddUser(Bank bank) {
+  User user;
+  user.username("newUser");
+  user.password("newPassword123");
+  bank.addUser(user); 
+  if (bank.userExists(user)) {
+    cout << "Add user success\n";
+    return 1;
+  }
+  cout << "Add user fail\n";
+  return 0;
+}
+
 int testDeposit(Bank bank, int amt) {
   int oldBalance = bank.viewBalance();
   int newBalance = bank.deposit(amt);
@@ -23,10 +45,10 @@ int testWithdraw(Bank bank, int amt) {
   return 0;
 }
 
-int testLogin(string username, string password) {   
-  Bank bank{};
-  bank.login(username, password);
-  bool login = bank.login(username, password);
+int testLogin(Bank bank, string username, string password) {   
+  bool login = bank.login(username, password) 
+    && bank.currentUser().username() == username;
+  
   if (login) {
     cout << "Bank login successful\n";
     return 1;
@@ -40,12 +62,21 @@ int runBankTests() {
 
   string username = "user";
   string password = "PAssWOrd!@#$";
-  
-  testsPassed += testLogin(username, password);
-  
-  Bank bank{}; 
-  bank.login(username, password);
+ 
+  User user;
+  user.username(username);
+  user.password(password);
 
+  Bank bank{}; 
+  testsPassed += testAddUser(bank);
+  
+  bank.addUser(user);
+  
+  testsPassed += testLogin(bank, username, password);
+  testsPassed += testUserExists(bank, user);
+  
+  bank.login(username, password);
+  
   testsPassed += testWithdraw(bank, 1000);
   testsPassed += testDeposit(bank, 1000);
   return testsPassed;

@@ -15,7 +15,7 @@ int testLogin() {
   user2.username("user2");
   user2.password("PAssWOrd12#$");
 
-
+  
   cout << "############TEST#############\n";
   //Passes test if login fails
   cout << "user1 -- login: user1, password: PassWOrd#$12\n";

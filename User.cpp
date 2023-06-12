@@ -3,6 +3,14 @@
 
 using namespace std;
 
+int User::balance(int amt) {
+  m_balance += amt;
+  return m_balance;
+}
+string User::toString() {
+  return m_username;
+}
+
 string User::username() {
   return m_username;
 }
